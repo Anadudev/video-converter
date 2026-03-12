@@ -1,0 +1,17 @@
+services:
+  mysqlDB:
+    image: mysql:9.6.0
+    container_name: auth_user_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Admin123   # change this!
+      MYSQL_DATABASE: auth          # optional: creates a DB at startup
+      MYSQL_USER: auth_user                  # optional: creates a user
+      MYSQL_PASSWORD: Admin123          # optional: user password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data_valume:/var/lib/mysql
+
+volumes:
+  mysql_data_valume:
