@@ -38,3 +38,17 @@ def upload():
         return "success!", 200
     else:
         return "not authorized", 401
+
+@app.route("/download", methods=["GET"])
+def download():
+    access, err = validate.token(request)
+    access = json.loads(access)
+
+    if access["admin"]:
+        if request.args.get("id") is None:
+            return "id is required", 400
+
+        data = fs.get(ObjectId(request.args.get("id")))
+        return data.read(), 200
+    else:
+        return "not authorized", 401
